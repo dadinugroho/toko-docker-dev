@@ -1,0 +1,19 @@
+services:
+  toko_db:
+    image: mysql:5.7
+    platform: linux/amd64
+    container_name: ${CONTAINER_NAME}
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/dumps:/docker-entrypoint-initdb.d
+      - ./mysql/config/my.cnf:/etc/mysql/conf.d/my.cnf
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5

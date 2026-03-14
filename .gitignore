@@ -1,0 +1,6 @@
+.env
+.DS_STORE
+mysql/data/*
+mysql/dumps/*
+!mysql/data/.gitkeep
+!mysql/dumps/.gitkeep
